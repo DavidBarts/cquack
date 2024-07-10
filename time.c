@@ -1,7 +1,6 @@
 #define _blackcap_name_time_c_
 
 #include "time.h"
-#include "error.h"
 
 static int ssm(const struct tm *);
 static int ssm2(int, int);
