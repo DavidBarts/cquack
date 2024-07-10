@@ -123,8 +123,8 @@ static void compat_mode(const char *rtimes) {
 
 static void help_mode(void) {
     const char *myname = getmyname();
-    printf("Usage: %s {{help|list}}\n", myname);
-    printf("       %s [once] {{at|in}} time [message...]\n", myname);
+    printf("Usage: %s {help|list}\n", myname);
+    printf("       %s [once] {at|in} time [message...]\n", myname);
     fputs("\nAlarm quack.\n\n"
           "Subcommands:\n"
           "help  Print this help message.\n"
