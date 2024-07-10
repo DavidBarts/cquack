@@ -1,0 +1,13 @@
+OBJS = error.o list.o main.o must.o normal.o parsetime.o quack.o time.o
+
+CC = gcc
+CFLAGS - -DLINUX
+
+quack: $(OBJS)
+	$(CC) -o $@ $(OBJS)
+
+%.o: %.c %.h
+	$(CC) $(CFLAGS) -c $<
+
+clean:
+	/bin/rm -f $(OBJS)
