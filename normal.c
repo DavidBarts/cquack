@@ -12,7 +12,7 @@ static const int WAIT_FOR_PARENT = 2;
 static const int BOTHER = 10;
 static const int FIVEMIN = 5 * 60;
 static const int ONEMIN = 60;
-static const int MAX_SLEEP = 60.0;
+static const int MAX_SLEEP = 60;
 static const size_t VFORMAT_LEN = 128;
 
 static bool sleep_until(time_t);
