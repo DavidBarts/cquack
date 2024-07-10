@@ -153,7 +153,6 @@ static char *get_message(int argc, char *argv[], int start) {
             break;
         }
         end = stpcpy(end, " ");
-        size -= 1;
     }
     return ret;
 }
