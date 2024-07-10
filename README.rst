@@ -20,8 +20,8 @@ with a few enhancements:
 Installing
 ----------
 
-Quack builds on both MacOS and Linux. With a few minor changes to list.c
-and quack.c, it should build on most fully POSIX-compliant operating
+Quack builds on both MacOS and Linux. With a few minor changes to ``list.c``
+and ``quack.c``, it should build on most fully POSIX-compliant operating
 systems. (Quack relies on certain particulars of how POSIX-compliant kernels
 launch and manage processes, so *will not* run properly on Windows. Sorry.)
 
