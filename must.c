@@ -7,7 +7,7 @@ static void die(const char *);
 void *must_malloc(size_t size) {
     void *ret = malloc(size);
     if (ret == NULL) {
-        die("malloc failed!");
+        die("malloc failed!\n");
     }
     return ret;
 }
@@ -15,7 +15,7 @@ void *must_malloc(size_t size) {
 void *must_realloc(void *ptr, size_t size) {
     void *ret = realloc(ptr, size);
     if (ret == NULL) {
-        die("realloc failed!");
+        die("realloc failed!\n");
     }
     return ret;
 }
@@ -23,7 +23,7 @@ void *must_realloc(void *ptr, size_t size) {
 char *must_strdup(const char *s) {
     char *ret = strdup(s);
     if (ret == NULL) {
-        die("strdup failed!");
+        die("strdup failed!\n");
     }
     return ret;
 }
