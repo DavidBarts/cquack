@@ -13,11 +13,9 @@ static const int BOTHER = 10;
 static const int FIVEMIN = 5 * 60;
 static const int ONEMIN = 60;
 static const int MAX_SLEEP = 60;
-static const size_t VFORMAT_LEN = 128;
 
 static bool sleep_until(time_t);
 static void alert(const char *, ...);
-static char *vformat(const char *, va_list);
 
 void normal_mode(time_t when, const char *message) {
     pid_t pid = fork();
@@ -29,6 +27,7 @@ void normal_mode(time_t when, const char *message) {
         exit(0);
     }
     /* child */
+    setvbuf(stdout, NULL, _IOLBF, 0);
     if (!once) {
         sleep(WAIT_FOR_PARENT);
         if (sleep_until(when - FIVEMIN)) {
@@ -67,32 +66,7 @@ static bool sleep_until(time_t then) {
 static void alert(const char *format, ...) {
     va_list ap;
     va_start(ap, format);
-    char *msg = vformat(format, ap);
+    vprintf(format, ap);
     va_end(ap);
-    write(1, msg, strlen(msg));
-    free(msg);
     quack();
-}
-
-static char *vformat(const char *format, va_list ap) {
-    char *buf = (char *) must_malloc(VFORMAT_LEN);
-    va_list ap2;
-
-    va_copy(ap2, ap);
-    int status = vsnprintf(buf, VFORMAT_LEN, format, ap2);
-    va_end(ap2);
-    if (status < 0) {
-        buf[0] = '\0';  /* mangled format, return empty string */
-    }
-
-    if (status >= VFORMAT_LEN) {
-        size_t bufsize = status + 1;
-        buf = (char *) must_realloc(buf, bufsize);
-        status = vsnprintf(buf, bufsize, format, ap);
-        if (status < 0 || status >= bufsize) {
-            buf[0] = '\0';  /* two strikes and yer out */
-        }
-    }
-
-    return buf;
 }

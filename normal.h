@@ -1,7 +1,6 @@
 #ifndef _blackcap_name_normal_h_
 #define _blackcap_name_normal_h_
 
-#include <stdarg.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <time.h>
