@@ -27,7 +27,7 @@ void normal_mode(time_t when, const char *message) {
         exit(0);
     }
     /* child */
-    setvbuf(stdout, NULL, _IOLBF, 0);
+    setvbuf(stdout, NULL, _IOLBF, BUFSIZ);
     if (!once) {
         sleep(WAIT_FOR_PARENT);
         if (sleep_until(when - FIVEMIN)) {

@@ -12,7 +12,7 @@ void error(const char *format, ...) {
     va_list ap;
 
     if (unbuf) {
-        setvbuf(stderr, NULL, _IOLBF, 0);
+        setvbuf(stderr, NULL, _IOLBF, BUFSIZ);
         unbuf = false;
     }
     fputs(myname, stderr);
