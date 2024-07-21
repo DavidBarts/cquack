@@ -46,7 +46,7 @@ void normal_mode(time_t when, const char *message) {
     if (!once) {
         alert("That was the last time I'll tell you. Bye.\n");
     }
-    _exit(0);
+    exit(0);
 }
 
 /* we sleep in stages because time stands still when the system is in
@@ -66,7 +66,11 @@ static bool sleep_until(time_t then) {
 static void alert(const char *format, ...) {
     va_list ap;
     va_start(ap, format);
-    vprintf(format, ap);
+    int status = vprintf(format, ap);
     va_end(ap);
+    if (status <= 0) {
+        /* tty lost due to logout */
+        exit(0);
+    }
     quack();
 }
