@@ -72,5 +72,5 @@ Specifying Times
 Times are specified in hh:mm format. For ``quack at`` times are on a 24-hour
 clock, and both hours and minutes must be specified; the alarm will always be
 set for a period in the next 24 hours. For ``quack in``, times are specified as
-a specific number of hours and minutes in the future, with the hours portion
+a number of hours and minutes in the future, with the hours portion
 optional.
