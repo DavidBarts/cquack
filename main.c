@@ -73,17 +73,21 @@ int main(int argc, char *argv[]) {
         error("expecting time argument");
         exit(2);
     }
-    struct parsetime_ret parsed = parsetime(argv[rest]);
-    if (parsed.hh < 0 || parsed.mm < 0) {
-        error("%s - invalid time", argv[rest]);
-        exit(1);
-    }
 
+    struct parsetime_ret parsed = parsetime(argv[rest]);
     time_t when;
     if (!strcmp(subcommand, "in")) {
+        if (parsed.hh < 0) {
+            /* single value is treated as minutes */
+            parsed.hh = 0;
+        }
+        if (parsed.mm < 0) {
+            error("%s - invalid time", argv[rest]);
+            exit(1);
+        }
         when = time(NULL) + ((parsed.hh * 60) + parsed.mm) * 60;
     } else if(!strcmp(subcommand, "at")) {
-        if (parsed.hh > 23 || parsed.mm > 59) {
+        if (parsed.hh < 0 || parsed.mm < 0 || parsed.hh > 23 || parsed.mm > 59) {
             error("%s - invalid time", argv[rest]);
             exit(1);
         }

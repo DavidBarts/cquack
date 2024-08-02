@@ -33,9 +33,8 @@ static void _parsetime(struct parsetime_ctx *ctx, struct parsetime_ret *ret, con
         return;
     }
     if ((raw_mm = strtok(NULL, sep)) == NULL) {
-        /* single value is treated as minutes */
         raw_mm = raw_hh;
-        raw_hh = "0";
+        raw_hh = "-1";
     }
     if (strtok(NULL, "") != NULL) {
         /* ensure no trailing garbage */
