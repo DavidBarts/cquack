@@ -16,6 +16,8 @@ with a few enhancements:
 * Can schedule reminders relative to the current time (e.g. 20 minutes
   from now) as well as at a specific absolute time of day.
 * Can list the process ID’s of all pending alarms.
+* Tries as hard as possible to work around how processor sleep states
+  caused by power management affect sleeping and alarms.
 
 Installing
 ----------
@@ -74,3 +76,35 @@ clock, and both hours and minutes must be specified; the alarm will always be
 set for a time in the next 24 hours. For ``quack in``, times are specified as
 a number of hours and minutes in the future, with the hours portion
 optional.
+
+Listing Processes
+~~~~~~~~~~~~~~~~~
+
+``quack list`` will list all running ``quack`` processes, which is useful if
+you want to silence a given alarm (i.e. kill its process).
+
+Silencing an Alarm
+~~~~~~~~~~~~~~~~~~
+
+The way to silence an alarm is to kill its associated process. See “Listing
+Processes” immediately above. If you log out or close the window associated
+with one or more ``quack`` processes, it will also silence the associated
+alarms.
+
+Power Management and Alarms
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is something of a problem. If a computer goes to sleep, it cannot issue
+alarms. The cure is to configure power management so that your computer never
+goes into a deep sleep if receiving alarms is important to you. (This problem
+is not particular to ``quack``; it affects any program whose job it is to
+issue asynchronous reminders.)
+
+A further wrinkle is that if a computer goes to sleep, time essentially ceases
+to pass so far as the alarm(2) system call (which is what ``quack`` uses under
+the hood) is concerned. This causes many alarm clock programs (and the
+traditional ``leave`` command) to issue alerts which are late by the amount of
+time the processor spent in a deep sleep state. ``quack`` works around this
+glitch by doing its sleeping in short “naps,” awakening at regular intervals to
+check the current time. So long as your computer is not in a deep sleep at the
+scheduled time of the alarm, the alarm should get raised on time or close to it.
